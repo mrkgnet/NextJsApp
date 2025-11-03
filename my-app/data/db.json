@@ -1,0 +1,113 @@
+{
+    "laptop": [
+        {
+            "id": 1,
+            "image": "https://www.technolife.com/image/small_product-TLP-60364_3fa54410-5d64-45e2-8967-c2123ef85cf8.png",
+            "text": "لپ‌تاپ اپل MacBook Pro M3 با نمایشگر Retina و عملکرد فوق‌العاده برای کاربران حرفه‌ای.",
+            "price": 97900000,
+            "brand": "dell"
+        },
+        {
+            "id": 2,
+            "image": "https://www.technolife.com/image/small_product-TLP-49420_3212ed94-410a-4165-9087-107aed9bbdd5.png",
+            "text": "لپ‌تاپ گیمینگ ASUS ROG Zephyrus G14 با پردازنده Ryzen 9 و کارت گرافیک RTX 4070.",
+            "price": 78900000,
+            "brand": "dell"
+        },
+        {
+            "id": 3,
+            "image": "https://www.technolife.com/image/small_product-TLP-32595_e7c30408-66ef-4111-ab48-91c1ec3b1b6f.png",
+            "text": "لپ‌تاپ HP Spectre x360 با طراحی دوحالته، نمایشگر OLED و بدنه آلومینیومی.",
+            "price": 68900000,
+            "brand": "HP"
+        },
+        {
+            "id": 4,
+            "image": "https://www.technolife.com/image/small_product-TLP-60364_3fa54410-5d64-45e2-8967-c2123ef85cf8.png",
+            "text": "لپ‌تاپ Dell XPS 15 با نمایشگر InfinityEdge و سخت‌افزار قدرتمند برای کارهای سنگین.",
+            "price": 84900000,
+            "brand": "Dell"
+        },
+        {
+            "id": 5,
+            "image": "https://www.technolife.com/image/small_product-TLP-60364_3fa54410-5d64-45e2-8967-c2123ef85cf8.png",
+            "text": "لپ‌تاپ Lenovo Legion 7i با کارت گرافیک RTX 4080 و سیستم خنک‌کننده پیشرفته.",
+            "price": 85900000,
+            "brand": "Lenovo"
+        }
+    ],
+    "mobile": [
+        {
+            "id": 1,
+            "image": "https://s.mobile.ir/Static/cache/prd/40971-main_200_0.jpg",
+            "text": "گوشی پرچمدار سامسونگ Galaxy S24 Ultra با دوربین 200 مگاپیکسلی.",
+            "price": 73900000,
+            "brand": "dell"
+        },
+        {
+            "id": 2,
+            "image": "https://s.mobile.ir/Static/cache/prd/40971-main_200_0.jpg",
+            "text": "گوشی اپل iPhone 15 Pro Max با چیپ A17 Pro و طراحی تیتانیومی.",
+            "price": 89900000,
+            "brand": "dell"
+        },
+        {
+            "id": 3,
+            "image": "https://s.mobile.ir/Static/cache/prd/40926-main_200_0.jpg",
+            "text": "گوشی شیائومی 14 Pro با همکاری Leica و نمایشگر 2K AMOLED.",
+            "price": 45900000,
+            "brand": "Xiaomi"
+        },
+        {
+            "id": 4,
+            "image": "https://s.mobile.ir/Static/cache/prd/40926-main_200_0.jpg",
+            "text": "گوشی وان‌پلاس 12 با چیپ Snapdragon 8 Gen 3 و شارژ سریع 100 وات.",
+            "price": 42900000,
+            "brand": "OnePlus"
+        },
+        {
+            "id": 5,
+            "image": "https://s.mobile.ir/Static/cache/prd/40941-main_200_0.jpg",
+            "text": "گوشی پوکو F6 Pro اقتصادی با عملکرد قدرتمند و شارژ سریع 120 وات.",
+            "price": 23900000,
+            "brand": "Poco"
+        }
+    ],
+    "cameras": [
+        {
+            "id": 1,
+            "image": "https://example.com/images/canon-eos-r6-ii.jpg",
+            "text": "دوربین Canon EOS R6 Mark II با سنسور فول‌فریم و فوکوس خودکار Dual Pixel CMOS AF II.",
+            "price": 84900000,
+            "brand": "Canon"
+        },
+        {
+            "id": 2,
+            "image": "https://example.com/images/sony-a7-iv.jpg",
+            "text": "دوربین Sony A7 IV با سنسور 33 مگاپیکسلی و قابلیت فیلم‌برداری 4K 60fps.",
+            "price": 89900000,
+            "brand": "Sony"
+        },
+        {
+            "id": 3,
+            "image": "https://example.com/images/nikon-z6-ii.jpg",
+            "text": "دوربین Nikon Z6 II با پردازنده EXPEED 6 و لرزش‌گیر داخلی 5 محوره.",
+            "price": 81900000,
+            "brand": "Nikon"
+        },
+        {
+            "id": 4,
+            "image": "https://example.com/images/fujifilm-x-t5.jpg",
+            "text": "دوربین Fujifilm X-T5 با حسگر 40 مگاپیکسلی X-Trans و طراحی کلاسیک.",
+            "price": 73900000,
+            "brand": "Fujifilm"
+        },
+        {
+            "id": 5,
+            "image": "https://example.com/images/panasonic-lumix-s5-ii.jpg",
+            "text": "دوربین Panasonic Lumix S5 II با فیلم‌برداری 6K و لرزش‌گیر Dual I.S. 2.",
+            "price": 75900000,
+            "brand": "Panasonic"
+        }
+    ]
+}

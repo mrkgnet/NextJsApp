@@ -1,0 +1,51 @@
+
+@import "tailwindcss";
+
+
+
+/* Import Third-party override css */
+/* @import "flyonui/src/vendor/flatpickr.css"; */
+/* @import "flyonui/src/vendor/notyf.css"; */
+/* @import "flyonui/src/vendor/datatables.css"; */
+/* @import "flyonui/src/vendor/editor.css"; */
+/* @import "flyonui/src/vendor/fullcalendar.css"; */
+/* @import "flyonui/src/vendor/raty.css"; */
+/* @import "flyonui/src/vendor/waves.css"; */
+/* @import "flyonui/src/vendor/apexcharts.css"; */      
+
+
+
+
+* {
+    direction: rtl;
+    font-family: iran_sans_medium;
+
+}
+
+@font-face {
+    font-family: 'iran_sans_medium';
+    src: url(../public/fonts/IRANSansWeb_Medium.ttf);
+}
+
+.font_sm {
+    font-size: 9pt;
+}
+
+body {
+    color: rgb(35, 35, 35);
+}
+
+
+/* progress bar top of site  */
+/* styles/globals.css */
+
+#nprogress .bar {
+  background: #3b82f6 !important; /* رنگ آبی تیلویند */
+  height: 2px !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #3b82f6, 0 0 5px #3b82f6 !important;
+}
+
+/* progress bar top of site  */
