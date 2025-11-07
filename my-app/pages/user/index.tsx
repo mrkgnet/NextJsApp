@@ -192,5 +192,6 @@ export async function getServerSideProps() {
         props: {
             data: JSON.parse(JSON.stringify(data))
         },
+        
     };
 }
