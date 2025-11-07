@@ -10,13 +10,10 @@ export default async function handler(req, res) {
     return res.status(500).json({ message: "Internal Server Error - DB Connection Failed" });
   }
 
-  // -------------------------------------------------------------------
-  // 🔹 مدیریت درخواست GET (کد شما عالی بود، فقط منتقل شد)
-  // -------------------------------------------------------------------
   if (req.method === "GET") {
     try {
-      const { gender, search } = req.query;
       const filter = {};
+      const { gender, search } = req.query;
 
       if (gender) {
         filter.gender = gender.trim().toLowerCase();
@@ -33,7 +30,7 @@ export default async function handler(req, res) {
           { lastname: { $in: words } },
         ];
       }
-
+   
       const contacts = await Contact.find(filter);
 
       if (!contacts || contacts.length === 0) {
@@ -48,9 +45,7 @@ export default async function handler(req, res) {
     }
   }
 
-  // -------------------------------------------------------------------
-  // 🔹 مدیریت درخواست POST (بخش اصلاح‌شده)
-  // -------------------------------------------------------------------
+
   if (req.method === "POST") {
     // کل منطق را در try...catch قرار می‌دهیم
     try {
@@ -83,10 +78,7 @@ export default async function handler(req, res) {
     }
   }
 
-  // -------------------------------------------------------------------
-  // 🔹 مدیریت متدهای دیگر
-  // -------------------------------------------------------------------
-  // اگر متد ارسالی نه GET بود و نه POST
+
   res.setHeader('Allow', ['GET', 'POST']);
   return res.status(405).end(`Method ${req.method} Not Allowed`);
 }
