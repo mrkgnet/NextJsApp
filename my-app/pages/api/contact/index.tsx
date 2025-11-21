@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         ];
       }
    
-      const contacts = await Contact.find(filter);
+      const contacts = await Contact.find(filter).populate('userId_Creator', '-password');
 
       if (!contacts || contacts.length === 0) {
         return res.status(404).json({ message: "No contacts found" });
@@ -49,15 +49,18 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     // کل منطق را در try...catch قرار می‌دهیم
     try {
-      const { firstname, lastname, age, gender, phone } = req.body;
+      const { firstname, lastname, age, gender, phone , userId_Creator} = req.body;
+     
       const newContact = await Contact.create({
         firstname,
         lastname,
         age,
         gender,
-        phone,
+        phone, 
+        userId_Creator
       });
 
+      
       return res.status(201).json({
         message: "Contact created successfully",
         data: newContact,

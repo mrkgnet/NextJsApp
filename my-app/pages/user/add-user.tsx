@@ -1,15 +1,21 @@
 import NavbarUser from "@/components/navbar_user/Navbar_User";
 import axios from "axios";
+import { cookies } from "next/headers";
 import { settings } from "nprogress";
 import React, { useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-const InfoCard = () => {
+import jwt from 'jsonwebtoken';
+const InfoCard = ({ userId }) => {
+
+    // get token
+    console.log("USER ID:", userId);
     const [formData, setFormData] = useState({
         firstname: "",
         lastname: "",
         age: "",
         gender: "",
         phone: "",
+        userId_Creator: userId,
     });
 
     const [isLoading, setIsLoading] = useState(false);
@@ -43,8 +49,8 @@ const InfoCard = () => {
                 phone: "",
             });
         } catch (error) {
-          
-            
+
+
             if (error.response) {
                 const message = error.response.data.details || 'خطا در ثبت اطلاعات';
                 toast.error(`خطا: ${message}`);
@@ -119,7 +125,7 @@ const InfoCard = () => {
                         <div>
 
 
-                            
+
                             <label className="block text-gray-700 mb-1">جنسیت</label>
                             <select
                                 name="gender"
@@ -167,5 +173,22 @@ const InfoCard = () => {
 export default InfoCard;
 function saveSettings(settings: any): Promise<unknown> | (() => Promise<unknown>) {
     throw new Error("Function not implemented.");
+}
+
+export async function getServerSideProps(context: any) {
+    const token = context.req.cookies.token || null;
+    if (!token) {
+        return {
+            props: { userId: null }
+        }
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+    return {
+        props: {
+            userId: decoded.id,
+            user: decoded
+        }
+    };
 }
 

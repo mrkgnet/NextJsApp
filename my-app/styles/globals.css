@@ -30,6 +30,9 @@
 .font_sm {
     font-size: 9pt;
 }
+.font_md {
+    font-size: 10pt;
+    }
 
 body {
     color: rgb(35, 35, 35);
@@ -49,3 +52,9 @@ body {
 }
 
 /* progress bar top of site  */
+
+.Toastify__toast{
+    font-family: iran_sans_medium;
+    font-weight: 100;
+
+}

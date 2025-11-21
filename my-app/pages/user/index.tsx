@@ -7,13 +7,26 @@ import { FaRegEdit } from "react-icons/fa";
 import { connectDB } from "@/lib/db";
 import Contact from "@/models/Contact";
 import { FcDeleteColumn } from "react-icons/fc";
+import jwt from "jsonwebtoken";
+import { redirect } from "next/dist/server/api-utils";
+import path from "path";
+import { FaRegHeart } from "react-icons/fa6";
+import Swal from "sweetalert2";
+import toast, { Toaster } from "react-hot-toast";
 
-export default function ContactTable({ data }) {
+
+export default function ContactTable({ data, userId }) {
 
     const [contact, setContact] = useState(data)
     const [search, setSearch] = useState("");
     const [gender, setGender] = useState("");
     const [isLoading, setIsLoading] = useState(false)
+
+    //دکمه لایک اصلی 
+    const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+
+
+
 
     // دکمه سرچ
     const handleSearch = async () => {
@@ -40,10 +53,10 @@ export default function ContactTable({ data }) {
         setIsLoading(true)
         console.log(contact)
         try {
-            const res = await fetch(`/api/contact/${id}`,{method: "DELETE",}
+            const res = await fetch(`/api/contact/${id}`, { method: "DELETE", }
             );
             if (res.ok) {
-                setContact(contact.filter((e)=>e._id !== id));
+                setContact(contact.filter((e) => e._id !== id));
             } else {
                 alert("حذف انجام نشد")
             }
@@ -70,8 +83,57 @@ export default function ContactTable({ data }) {
 
 
 
+    const toggleFavorite = async (id) => {
+        try {
+
+            const res = await fetch(`/api/favorite/${id}`, {
+                method: "PATCH",
+            })
+            const data = await res.json()
+
+            console.log(data)
+
+            toast.success(data.message, {
+                icon: '👏',
+                style: {
+                    borderRadius: '10px',
+                    background: '#0d530dff',
+                    color: '#fff',
+                    fontSize: '15px'
+                },
+            })
+
+
+
+            setContact((prev) =>
+                prev.map((c) =>
+                    c._id === id ? { ...c, favorite: data.favorite } : c
+                )
+            );
+
+        } catch (error) {
+            toast.success(error.message)
+        }
+
+    }
+
+
+    const showFavoriteHandler = () => {
+        setShowOnlyFavorites(prev => !prev);
+
+        if (!showOnlyFavorites) {
+            // فقط علاقه‌مندی‌ها
+            setContact(data.filter((e) => e.favorite === true));
+        } else {
+            // برگشت به همه
+            setContact(data);
+        }
+    };
+
     return (
-        <div className="max-w-screen-md mx-auto my-5 font_sm ">
+        <div className="max-w-screen-xl mx-auto my-5 font_sm ">
+            {/* <div><Toaster  position="top-left" /></div> */}
+            <Toaster position="top-center" reverseOrder={false} />
             <NavbarUser />
             <div className="overflow-x-auto  border border-gray-200 shadow-md bg-white font_sm mt-3">
                 {/* search top  */}
@@ -102,6 +164,15 @@ export default function ContactTable({ data }) {
                     >
                         {isLoading ? "در حال جستجو..." : "جستجو"}
                     </button>
+
+
+                    <button onClick={showFavoriteHandler}>
+                        <FaRegHeart size={25} fill={showOnlyFavorites ? 'red' : 'black'}  />
+                    </button>
+
+
+
+
                 </div>
 
 
@@ -114,11 +185,12 @@ export default function ContactTable({ data }) {
                                 <th className="py-3 px-4 ">ردیف</th>
                                 <th className="py-3 px-4 ">نام</th>
                                 <th className="py-3 px-4 ">نام خانوادگی</th>
-                                <th className="py-3 px-4 ">جنسیت</th>
+                                <th className="py-3 px-4 ">وضعیت تاهل</th>
                                 <th className="py-3 px-4 ">سن</th>
                                 <th className="py-3 px-4 ">شماره تماس</th>
                                 <th className="py-3 px-4  text-center">ویرایش</th>
                                 <th className="py-3 px-4  text-center">حذف</th>
+                                <th className="py-3 px-4  text-center">علاقه مندی</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
@@ -141,27 +213,45 @@ export default function ContactTable({ data }) {
                                     <td className="py-3 px-4">
                                         {item.phone}
                                     </td>
-                                    <td className="py-3 px-4 text-center">
+                                    <td className="py-3 px-4 text-center  ">
                                         <Link
                                             href={`/user/edit/${item._id}`}
-                                            className="inline-flex gap-2 items-center justify-center px-1.5 py-1 rounded-xl shadow   hover:from-blue-600 hover:to-indigo-700 transition-all duration-200 border hover:text-blue-600 coursor-pointer"
+                                            className="inline-flex gap-2 items-center justify-center px-1.5 py-1 rounded-xl    hover:from-blue-600 hover:to-indigo-700 transition-all duration-200  hover:text-blue-600 coursor-pointer"
                                         >
 
-                                            <FaRegEdit size={16} />
+                                            <FaRegEdit size={20} />
                                         </Link>
                                     </td>
 
-                                    <td className="py-3 px-4 text-center">
+                                    <td className="py-3 px-4 text-center   ">
                                         <button
                                             onClick={() => deleteContactHandler(item._id)}
                                             disabled={isLoading}
-                                            className={`flex gap-2 items-center justify-center px-1.5 py-1 rounded-xl shadow border transition-all duration-200 cursor-pointer ${isLoading ? "text-gray-400 cursor-not-allowed" : "hover:text-red-600"
+                                            className={`flex gap-2 items-center justify-center px-1.5 py-1 rounded-xl  transition-all duration-200 cursor-pointer ${isLoading ? "text-gray-400 cursor-not-allowed" : "hover:text-red-600"
                                                 }`}
                                         >
-                                            {isLoading ? "در حال حذف..." : <MdOutlineDeleteForever size={16} />}
+                                            {isLoading ? "در حال حذف..." : <MdOutlineDeleteForever size={20} />}
                                         </button>
 
                                     </td>
+
+
+
+
+                                    {/* like */}
+                                    <td className="py-3 px-4 text-center ">
+                                        <button
+                                            onClick={() => toggleFavorite(item._id)}
+
+                                            className={"flex gap-2 items-center justify-center px-1.5 py-1 rounded-xl  transition-all duration-200 cursor-pointer hover:text-blue-600 "}
+                                        >
+                                            <FaRegHeart size={18} fill={item.favorite ? "red" : "black"} />
+                                        </button>
+
+                                    </td>
+
+
+
                                 </tr>
                             ))}
 
@@ -181,17 +271,50 @@ export default function ContactTable({ data }) {
 }
 
 
-
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
 
     await connectDB();
-    const data = await Contact.find().lean();
-    // const res = await fetch("http://localhost:3000/api/contact");
-    // const data = await res.json();
+
+    const token = context.req.cookies.token;
+
+    if (!token) {
+        return {
+            redirect: {
+                destination: '/auth/login',
+                permanent: false
+            }
+        };
+    }
+
+    let decoded;
+    try {
+        decoded = jwt.verify(token, process.env.JWT_SECRET);
+    } catch (err) {
+        return {
+            redirect: {
+                destination: '/auth/login',
+                permanent: false
+            }
+        };
+    }
+
+    // اگر userId وجود ندارد → توکن خراب است یا قدیمی
+    if (!decoded.id) {
+        return {
+            redirect: {
+                destination: '/auth/login',
+                permanent: false
+            }
+        };
+    }
+
+    const data = await Contact.find({ userId_Creator: decoded.id }).lean();
+
     return {
         props: {
-            data: JSON.parse(JSON.stringify(data))
-        },
-        
+            data: JSON.parse(JSON.stringify(data)),
+            userId: decoded.id
+        }
     };
 }
+

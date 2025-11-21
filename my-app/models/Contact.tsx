@@ -1,13 +1,42 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
 
 const contactSchema = new Schema(
   {
-    firstname: { type: String, required: true, trim: true ,minLength: [4,'نام کوتاه نباید کمتر از 2 کاراکتر باشد'] },
-    lastname: { type: String, required: true, trim: true },
-    age: { type: String, trim: true },
-    gender: { type: String, trim: true },
-    phone: { 
-      type: String, 
+    firstname:
+    {
+      type: String,
+      required: true,
+      trim: true,
+      minLength: [4, 'نام کوتاه نباید کمتر از 2 کاراکتر باشد']
+    },
+    lastname:
+    {
+      type: String,
+      required: true,
+      trim: true
+    },
+    age:
+    {
+      type: String,
+      trim: true
+    },
+    gender:
+    {
+      type: String,
+      trim: true
+    },
+    userId_Creator:
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'User',
+    },
+    favorite:{
+      type: Boolean,
+      default: false
+    },
+    phone:
+    {
+      type: String,
       trim: true,
       validate: {
         validator: function (v) {
@@ -18,9 +47,12 @@ const contactSchema = new Schema(
       required: [true, 'شماره موبایل الزامی است']
     },
   },
+
+
   {
     timestamps: true,
-  }
+  },
+
 );
 
 const Contact =
